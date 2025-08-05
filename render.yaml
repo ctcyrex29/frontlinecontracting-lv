@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: Laravel App
+    env: php
+    buildCommand: 'composer install && npm install && npm run build'
+    startCommand: 'php artisan serve --host 0.0.0.0 --port 10000'
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: Laravel DB
+          property: host
+      - key: DB_DATABASE
+        fromDatabase:
+          name: Laravel DB
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: Laravel DB
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: Laravel DB
+          property: password
+databases:
+  - name: Laravel DB
+    plan: free
+    ipAllowList: []
